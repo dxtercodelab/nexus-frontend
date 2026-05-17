@@ -1,0 +1,359 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== VARIABLES THÈME DARK ===== */
+:root[data-theme="dark"] {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #1a1f2e;
+  --text-primary: #ffffff;
+  --text-secondary: #e4e7ec;
+  --text-muted: #6b7280;
+  --border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-hover: rgba(255, 255, 255, 0.05);
+  --scrollbar-track: #1a1f2e;
+  --scrollbar-thumb: #3a4257;
+  --scrollbar-thumb-hover: #4a5570;
+}
+
+/* ===== VARIABLES THÈME LIGHT ===== */
+:root[data-theme="light"] {
+  --bg-primary: #f1f5f9;
+  --bg-secondary: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --border: rgba(15, 23, 42, 0.08);
+  --glass-bg: #ffffff;
+  --glass-hover: #f8fafc;
+  --scrollbar-track: #e2e8f0;
+  --scrollbar-thumb: #94a3b8;
+  --scrollbar-thumb-hover: #64748b;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.4s ease-out;
+}
+
+/* ===== GLASS - DARK MODE ===== */
+:root[data-theme="dark"] .glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+:root[data-theme="dark"] .glass-hover:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ===== GLASS - LIGHT MODE (DESIGN CARTE PROPRE) ===== */
+:root[data-theme="light"] .glass {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.06);
+  transition: all 0.3s ease;
+  backdrop-filter: none;
+}
+
+:root[data-theme="light"] .glass-hover:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08), 0 4px 10px rgba(15, 23, 42, 0.05);
+  transform: translateY(-2px);
+}
+
+/* ===== GRADIENTS ===== */
+.gradient-blue {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-purple {
+  background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%);
+}
+
+.gradient-orange {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.gradient-green {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Mode light : gradient text plus visible */
+:root[data-theme="light"] .gradient-text {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== GLOW EFFECTS ===== */
+.glow-blue {
+  box-shadow: 0 0 40px rgba(102, 126, 234, 0.3);
+}
+
+.glow-purple {
+  box-shadow: 0 0 40px rgba(142, 45, 226, 0.3);
+}
+
+:root[data-theme="light"] .glow-blue {
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.25);
+}
+
+:root[data-theme="light"] .glow-purple {
+  box-shadow: 0 8px 24px rgba(142, 45, 226, 0.25);
+}
+
+/* ===== OVERRIDE COULEURS POUR MODE LIGHT ===== */
+
+/* Backgrounds */
+:root[data-theme="light"] .bg-\[\#0a0e1a\] {
+  background-color: var(--bg-primary) !important;
+}
+
+:root[data-theme="light"] .bg-white\/5 {
+  background-color: #f1f5f9 !important;
+}
+
+:root[data-theme="light"] .bg-white\/10 {
+  background-color: #e2e8f0 !important;
+}
+
+/* Borders */
+:root[data-theme="light"] .border-white\/5,
+:root[data-theme="light"] .border-white\/10 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Text colors */
+:root[data-theme="light"] .text-white {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] .text-gray-300 {
+  color: #475569 !important;
+}
+
+:root[data-theme="light"] .text-gray-400 {
+  color: #64748b !important;
+}
+
+:root[data-theme="light"] .text-gray-500 {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="light"] .text-gray-600 {
+  color: #cbd5e1 !important;
+}
+
+/* Inputs / Selects */
+:root[data-theme="light"] input,
+:root[data-theme="light"] textarea,
+:root[data-theme="light"] select {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] input::placeholder,
+:root[data-theme="light"] textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+:root[data-theme="light"] input:focus,
+:root[data-theme="light"] textarea:focus,
+:root[data-theme="light"] select:focus {
+  background-color: #ffffff !important;
+}
+
+:root[data-theme="light"] select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* Hover sur tableaux et cartes */
+:root[data-theme="light"] .hover\:bg-white\/5:hover {
+  background-color: #f8fafc !important;
+}
+
+:root[data-theme="light"] .hover\:bg-white\/10:hover {
+  background-color: #f1f5f9 !important;
+}
+
+/* Boutons icône */
+:root[data-theme="light"] .hover\:bg-blue-500\/10:hover {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+:root[data-theme="light"] .hover\:bg-red-500\/10:hover {
+  background-color: rgba(239, 68, 68, 0.1) !important;
+}
+
+/* Badges colorés - Mode light : couleurs plus saturées */
+:root[data-theme="light"] .bg-green-500\/10 {
+  background-color: rgba(34, 197, 94, 0.1) !important;
+}
+
+:root[data-theme="light"] .bg-yellow-500\/10 {
+  background-color: rgba(234, 179, 8, 0.12) !important;
+}
+
+:root[data-theme="light"] .bg-red-500\/10 {
+  background-color: rgba(239, 68, 68, 0.1) !important;
+}
+
+:root[data-theme="light"] .bg-blue-500\/10 {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+:root[data-theme="light"] .bg-purple-500\/10 {
+  background-color: rgba(168, 85, 247, 0.1) !important;
+}
+
+:root[data-theme="light"] .text-green-400 {
+  color: #16a34a !important;
+}
+
+:root[data-theme="light"] .text-yellow-400 {
+  color: #ca8a04 !important;
+}
+
+:root[data-theme="light"] .text-red-400 {
+  color: #dc2626 !important;
+}
+
+:root[data-theme="light"] .text-blue-400 {
+  color: #2563eb !important;
+}
+
+:root[data-theme="light"] .text-purple-400 {
+  color: #9333ea !important;
+}
+
+:root[data-theme="light"] .text-orange-400 {
+  color: #ea580c !important;
+}
+
+/* Borders colorées */
+:root[data-theme="light"] .border-green-500\/20 {
+  border-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+:root[data-theme="light"] .border-yellow-500\/20 {
+  border-color: rgba(234, 179, 8, 0.3) !important;
+}
+
+:root[data-theme="light"] .border-red-500\/20 {
+  border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+:root[data-theme="light"] .border-blue-500\/20 {
+  border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+:root[data-theme="light"] .border-purple-500\/20 {
+  border-color: rgba(168, 85, 247, 0.3) !important;
+}
+
+/* Sidebar - Background spécifique en mode light */
+:root[data-theme="light"] aside.glass {
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  box-shadow: 4px 0 24px rgba(15, 23, 42, 0.04);
+}
+
+/* Modal en mode light */
+:root[data-theme="light"] .fixed.inset-0 .glass {
+  background: #ffffff;
+  box-shadow: 0 25px 50px rgba(15, 23, 42, 0.25);
+}
+
+/* Backdrop modal plus clair */
+:root[data-theme="light"] .bg-black\/70 {
+  background-color: rgba(15, 23, 42, 0.5) !important;
+}
+
+/* Loading text */
+:root[data-theme="light"] .text-gray-400 {
+  color: #64748b !important;
+}
+
+/* Recharts - Tooltip en mode light */
+:root[data-theme="light"] .recharts-tooltip-wrapper > div {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+}
+
+/* Hover scale effects */
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+.hover\:scale-\[1\.02\]:hover {
+  transform: scale(1.02);
+}
+
+/* Transitions */
+:root[data-theme="light"] .transition,
+:root[data-theme="light"] .transition-all {
+  transition-duration: 200ms;
+}
