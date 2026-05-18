@@ -1,11 +1,16 @@
+import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { LayoutDashboard, Package, Users, ShoppingCart, Sparkles, LogOut, Sun, Moon } from 'lucide-react';
+import { 
+  LayoutDashboard, Package, Users, ShoppingCart, 
+  Sparkles, LogOut, Sun, Moon, Menu, X 
+} from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 
 function MainLayout() {
   const { user, logout } = useAuth();
   const { theme, toggleTheme, isDark } = useTheme();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = [
     { path: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -16,10 +21,42 @@ function MainLayout() {
 
   return (
     <div className="flex h-screen" style={{ background: 'var(--bg-primary)' }}>
+      
+      {/* Header mobile (visible seulement sur mobile) */}
+      <header className="lg:hidden fixed top-0 left-0 right-0 z-30 glass border-b border-white/10 px-4 py-3 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 gradient-blue rounded-xl flex items-center justify-center glow-blue">
+            <Sparkles className="text-white" size={20} />
+          </div>
+          <div>
+            <h1 className="text-lg font-bold text-white">Nexus</h1>
+          </div>
+        </div>
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="p-2 text-white hover:bg-white/10 rounded-lg transition"
+        >
+          <Menu size={24} />
+        </button>
+      </header>
+
+      {/* Overlay mobile (fond noir quand sidebar ouverte) */}
+      {sidebarOpen && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="w-72 glass flex flex-col">
+      <aside className={`
+        fixed lg:relative inset-y-0 left-0 z-50
+        w-72 glass flex flex-col
+        transform transition-transform duration-300 ease-in-out
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
         {/* Logo */}
-        <div className="p-6 border-b border-white/5">
+        <div className="p-6 border-b border-white/5 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 gradient-blue rounded-xl flex items-center justify-center glow-blue">
               <Sparkles className="text-white" size={24} />
@@ -29,10 +66,17 @@ function MainLayout() {
               <p className="text-xs text-gray-400">Management Suite</p>
             </div>
           </div>
+          {/* Bouton fermer sur mobile */}
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="lg:hidden p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition"
+          >
+            <X size={20} />
+          </button>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-1">
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           <p className="text-xs uppercase text-gray-500 font-semibold px-4 mb-2 tracking-wider">
             Menu
           </p>
@@ -43,6 +87,7 @@ function MainLayout() {
                 key={item.path}
                 to={item.path}
                 end={item.path === '/'}
+                onClick={() => setSidebarOpen(false)}
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group relative ${
                     isActive
@@ -83,11 +128,7 @@ function MainLayout() {
               <div className="text-sm font-medium text-white">
                 Mode {isDark ? 'Clair' : 'Sombre'}
               </div>
-              <div className="text-xs text-gray-400">
-                Cliquer pour changer
-              </div>
             </div>
-            {/* Switch */}
             <div className={`w-11 h-6 rounded-full transition-all relative ${
               isDark ? 'bg-blue-500/20' : 'bg-yellow-500/20'
             }`}>
@@ -104,7 +145,7 @@ function MainLayout() {
           {/* User Info */}
           <div className="glass rounded-xl p-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 gradient-purple rounded-full flex items-center justify-center text-white font-semibold">
+              <div className="w-10 h-10 gradient-purple rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">
                 {user?.name?.charAt(0).toUpperCase() || 'U'}
               </div>
               <div className="flex-1 min-w-0">
@@ -126,7 +167,7 @@ function MainLayout() {
       </aside>
 
       {/* Contenu principal */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto pt-16 lg:pt-0">
         <div className="animate-fade-in">
           <Outlet />
         </div>

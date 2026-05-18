@@ -73,11 +73,11 @@ function Dashboard() {
   }
 
   return (
-    <div className="p-8 space-y-6">
+    <div className="p-4 lg:p-8 space-y-4 lg:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-white">
+          <h1 className="text-2xl lg:text-3xl font-bold text-white">
             Bonjour, <span className="gradient-text">Carlos</span>
           </h1>
           <p className="text-gray-400 mt-1">Voici un apercu de votre activite</p>

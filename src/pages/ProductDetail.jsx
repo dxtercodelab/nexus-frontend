@@ -94,7 +94,7 @@ function ProductDetail() {
     : { label: 'Rupture', color: 'text-red-400', bg: 'bg-red-500/10', border: 'border-red-500/20' };
 
   return (
-    <div className="p-8 space-y-6 animate-fade-in">
+    <div className="p-4 lg:p-8 space-y-4 lg:space-y-6 animate-fade-in">
       {/* Header avec retour */}
       <button
         onClick={() => navigate('/products')}

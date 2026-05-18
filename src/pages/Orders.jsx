@@ -105,7 +105,7 @@ function Orders() {
   };
 
   return (
-    <div className="p-8 space-y-6">
+    <div className="p-4 lg:p-8 space-y-4 lg:space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -149,7 +149,7 @@ function Orders() {
       </div>
 
       {/* Tableau */}
-      <div className="glass rounded-2xl overflow-hidden">
+      <div className="glass rounded-2xl overflow-x-auto">
         {loading ? (
           <div className="p-12 text-center text-gray-500">Chargement...</div>
         ) : orders.length === 0 ? (
